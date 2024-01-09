@@ -10,7 +10,7 @@ pipeline {
               sh "mvn clean package -DskipTests=true"
               archive 'target/*.jar' //so that they can be downloaded later
             }
-        } 
+      } 
       stage('Unit Testing') {
             steps {
               sh "mvn test"
@@ -28,6 +28,14 @@ pipeline {
                 sh "printenv" //list out all the jenkins env variables
                 sh "docker build -t chmadhus/numeric-app:${tag} ."
                 sh "docker push chmadhus/numeric-app:${tag}"
+              }
+            }
+      }
+      stage('Kubernetes Deployment - DEV') {
+            steps {
+              withKubeConfig([credentialsId: 'kubeconfig']){
+                sh "sed -i 's#replace#chmadhus/numeric-app:${tag}#g' k8s_deployment_service.yaml"
+                sh "kubectl apply -f k8s_deployment_service.yaml"
               }
             }
       }
