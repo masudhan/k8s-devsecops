@@ -26,7 +26,7 @@ pipeline {
             steps {
               withDockerRegistry([credentialsId: "docker-creds", url: ""]){
                 sh "printenv" //list out all the jenkins env variables
-                sh "docker build -t chmadhus/numeric-app:${tag}"
+                sh "docker build -t chmadhus/numeric-app:${tag} ."
                 sh "docker push chmadhus/numeric-app:${tag}"
               }
             }
