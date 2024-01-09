@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+        tag = sh(returnStdout: true, script: "git rev-parse --short=10 HEAD").trim()
+    }
 
   stages {
       stage('Build Artifact') {
@@ -21,10 +24,10 @@ pipeline {
       } 
       stage('Docker Build & Push ') {
             steps {
-              withDockerRegistry([credentialId: "docker-creds", url: ""]){
+              withDockerRegistry([credentialsId: "docker-creds", url: ""]){
                 sh "printenv" //list out all the jenkins env variables
-                sh 'docker build -t chmadhus/numeric-app:""$GIT_COMMIT""'
-                sh 'docker push chmadhu/numeric-app:""$GIT_COMMIT""'
+                sh "docker build -t chmadhus/numeric-app:${tag}"
+                sh "docker push chmadhus/numeric-app:${tag}"
               }
             }
       }
