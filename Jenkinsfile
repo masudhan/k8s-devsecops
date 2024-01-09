@@ -18,6 +18,13 @@ pipeline {
                 jacoco execPattern: 'target/jacoco.exec'
               }
             }
-        } 
+      } 
+      stage('Docker Build & Push ') {
+            steps {
+              sh "printenv" //list out all the jenkins env variables
+              sh 'docker build -t chmadhus/numeric-app:""$GIT_COMMIT""'
+              sh 'docker push chmadhu/numeric-app:""$GIT_COMMIT""'
+            }
+      }
     }
 }
