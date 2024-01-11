@@ -20,3 +20,5 @@
 ## Trivy
 `docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image python:3.4-alpine`
 `docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image --severity CRITICAL chmadhus/numeric-app:18e56bdd6c`
+`docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image --severity CRITICAL --exit-code 1 chmadhus/numeric-app:18e56bdd6c`
+`docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image --severity LOW --exit-code 0 chmadhus/numeric-app:18e56bdd6c`
