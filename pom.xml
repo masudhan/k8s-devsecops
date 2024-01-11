@@ -85,7 +85,28 @@
 						<outputFormat>HTML</outputFormat>
 					</outputFormats>
 				</configuration>
-                
+            </plugin>
+			<!-- Dependency check plugin -->
+			<plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>9.0.8</version>
+              <configuration>
+				<format>ALL</format>
+				<failBuildOnCVSS>9</failBuildOnCVSS>  <!-- fail the build for CVSS greater than or equal to 9  -->
+				<!-- To supress any dependencies for any local project use below options -->
+				<!-- <cveUrlModified>http://internal-mirror.mycorp.com/nvdcve-1.1-modified.json.gz</cveUrlModified>
+				<cveUrlBase>http://internal-mirror.mycorp.com/nvdcve-1.1-%d.json.gz</cveUrlBase>
+				<supressionFiles>
+				<supressionFile>
+					http://example.org/supression.xml
+				</supressionFile>
+				<supressionFile>
+					project-supression.xml
+				</supressionFile>
+				</supressionFiles>
+			   -->
+			   </configuration>
             </plugin>
 		</plugins>
 	</build>
