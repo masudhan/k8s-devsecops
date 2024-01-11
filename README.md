@@ -15,3 +15,8 @@
 `kubectl expose deploy node-app --name node-service --port 5000 --type ClusterIP`
 
 `curl node-service-ip:5000/plusone/99`
+
+
+## Trivy
+`docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image python:3.4-alpine`
+`docker run --rm -v $HOME/Library/Caches:/root/.cache aquasec/trivy image --severity CRITICAL chmadhus/numeric-app:18e56bdd6c`
